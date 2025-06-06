@@ -6,8 +6,10 @@
     <title>fetch1</title>
   </head>
   <body>
+    <h1>Usuarios:</h1>
+    <ul class="users"></ul>
     <h1>Correos:</h1>
-    <ul></ul>
+    <ul class="email"></ul>
     <script>
       fetch("https://jsonplaceholder.typicode.com/users")
         .then((res) => {
@@ -15,10 +17,15 @@
         })
         .then((data) => {
           data.forEach((user) => {
-            const markup = `<li>${user.name}</li>`;
+            const markupUser = `<li>${user.name}</li>`;
             document
-              .querySelector("ul")
-              .insertAdjacentHTML("beforeend", markup);
+              .querySelector(".users")
+              .insertAdjacentHTML("beforeend", markupUser);
+
+            const markupEmail = `<li>${user.email}</li>`;
+            document
+              .querySelector(".email")
+              .insertAdjacentHTML("beforeend", markupEmail);
           });
         })
         .catch((error) => console.log(error));
