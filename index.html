@@ -14,9 +14,14 @@
           return res.json();
         })
         .then((data) => {
-          console.log(data);
+          data.forEach((user) => {
+            const markup = `<li>${user.name}</li>`;
+            document
+              .querySelector("ul")
+              .insertAdjacentHTML("beforeend", markup);
+          });
         })
-        .catch((error) => console.log("error"));
+        .catch((error) => console.log(error));
     </script>
   </body>
 </html>
