@@ -6,9 +6,9 @@
     <title>fetch1</title>
   </head>
   <body>
-    <h1>Usuarios:</h1>
+    <h1>Usuarios activos:</h1>
     <ul class="users"></ul>
-    <h1>Correos:</h1>
+    <h1>Contacto:</h1>
     <ul class="email"></ul>
     <h1>Ubicación:</h1>
     <ul class="address"></ul>
@@ -24,17 +24,25 @@
               .querySelector(".users")
               .insertAdjacentHTML("beforeend", markupUser);
 
-            const markupEmail = `<li>${user.email}</li>`;
+            const markupContact = `<div>
+                <p>Datos de contacto de ${user.name}</p>
+                <ul>
+                    <li>${user.email}</li>
+                    <li>${user.phone}</li>
+                    <li>${user.website}</li>
+                </ul>
+                    </div>`;
             document
               .querySelector(".email")
-              .insertAdjacentHTML("beforeend", markupEmail);
+              .insertAdjacentHTML("beforeend", markupContact);
 
             const markupAddress = `<div>
                 <p>Ubicación de ${user.name}</p>
                 <ul>
                     <li>Ciudad: ${user.address.city}</li>
-                    <li>dirección: ${user.address.street}</li>
-                    <li>depto: ${user.address.suite}</li>
+                    <li>Dirección: ${user.address.street}</li>
+                    <li>Depto: ${user.address.suite}</li>
+                    <li>Código postal: ${user.address.zipcode}</li>
                     <a href="https://www.google.com/maps/search/?api=1&query=${user.address.geo.lat},${user.address.geo.lng}">Ver en mapa</a>
                 </ul>
             </div>`;
