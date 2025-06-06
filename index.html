@@ -10,6 +10,8 @@
     <ul class="users"></ul>
     <h1>Correos:</h1>
     <ul class="email"></ul>
+    <h1>Ubicación:</h1>
+    <ul class="address"></ul>
     <script>
       fetch("https://jsonplaceholder.typicode.com/users")
         .then((res) => {
@@ -26,6 +28,19 @@
             document
               .querySelector(".email")
               .insertAdjacentHTML("beforeend", markupEmail);
+
+            const markupAddress = `<div>
+                <p>Ubicación de ${user.name}</p>
+                <ul>
+                    <li>Ciudad: ${user.address.city}</li>
+                    <li>dirección: ${user.address.street}</li>
+                    <li>depto: ${user.address.suite}</li>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${user.address.geo.lat},${user.address.geo.lng}">Ver en mapa</a>
+                </ul>
+            </div>`;
+            document
+              .querySelector(".address")
+              .insertAdjacentHTML("beforeend", markupAddress);
           });
         })
         .catch((error) => console.log(error));
