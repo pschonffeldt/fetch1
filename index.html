@@ -19,7 +19,7 @@
         })
         .then((data) => {
           data.forEach((user) => {
-            const markupUser = `<li>${user.name}</li>`;
+            const markupUser = `<li>${user.name}, número de usuario ${user.id}</li>`;
             document
               .querySelector(".users")
               .insertAdjacentHTML("beforeend", markupUser);
@@ -27,9 +27,10 @@
             const markupContact = `<div>
                 <p>Datos de contacto de ${user.name}</p>
                 <ul>
-                    <li>${user.email}</li>
-                    <li>${user.phone}</li>
-                    <li>${user.website}</li>
+                    <li>Usuario: ${user.username}</li>
+                    <li>Correo: ${user.email}</li>
+                    <li>Teléfono: ${user.phone}</li>
+                    <li>Sitio web: ${user.website}</li>
                 </ul>
                     </div>`;
             document
