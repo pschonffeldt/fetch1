@@ -3,15 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
     <title>fetch1</title>
   </head>
   <body>
-    <h1>Usuarios activos:</h1>
-    <ul class="users"></ul>
-    <h1>Contacto:</h1>
-    <ul class="email"></ul>
-    <h1>Ubicación:</h1>
-    <ul class="address"></ul>
+    <div class="app">
+      <div class="app__search">
+        <div class="app__header">
+          <h1 class="app__title">Buscador de usuarios</h1>
+        </div>
+
+        <div class="input-wrapper">
+          <i class="fa fa-search"></i>
+          <input id="search-input" placeholder="e.g. Pikachu or 25" required />
+        </div>
+
+        <div class="app__buttons">
+          <button id="search-button">Buscar</button>
+          <button id="random-button">Aleatorio</button>
+          <button id="clear-button">Borrar</button>
+        </div>
+      </div>
+      <div class="data">
+        <h1>Usuarios activos:</h1>
+        <ul class="users"></ul>
+        <h1>Contacto:</h1>
+        <ul class="email"></ul>
+        <h1>Ubicación:</h1>
+        <ul class="address"></ul>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

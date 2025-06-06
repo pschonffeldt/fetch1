@@ -1,3 +1,8 @@
+const searchInput = document.getElementById("search-input");
+const searchButton = document.getElementById("search-button");
+const randomButton = document.getElementById("random-button");
+const clearButton = document.getElementById("clear-button");
+
 fetch("https://jsonplaceholder.typicode.com/users")
   .then((res) => {
     return res.json();
