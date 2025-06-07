@@ -2,17 +2,44 @@ const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 const randomButton = document.getElementById("random-button");
 const clearButton = document.getElementById("clear-button");
-const instructions = document.getElementById("app__instructions");
+const instructions = document.getElementById("app__messages");
+const userdataEls = document.getElementsByClassName("userdata");
+const BASE_URL = "https://jsonplaceholder.typicode.com/users";
+
+const buildUserUrl = (userID) => {
+  if (userID) {
+    return `${BASE_URL}/${userID}`;
+  } else {
+    return BASE_URL;
+  }
+};
+
+const fetchJson = async (url) => {
+  const resp = await fetch(url);
+  if (!resp.ok) {
+    throw new Error(`Fetch falló con status ${resp.status} en ${url}`);
+  }
+  return resp.json();
+};
+
+const fetchAllUsers = async () => {
+  try {
+    const data = await fetchJson(buildUserUrl());
+    stats.textContent = `Número total de usuarios: ${data.length}`;
+  } catch (err) {
+    console.error("Error al obtener los usuarios iniciales:", err);
+    stats.textContent = "No se pudo cargar la cantidad de usuarios.";
+  }
+};
 
 const getUsers = async () => {
   try {
-    const userID = searchInput.value.toLowerCase();
-    if (!userID) return;
-
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${userID}`
-    );
-    const data = await res.json();
+    const userID = searchInput.value.trim();
+    if (!userID) {
+      instructions.textContent = `Debes ingresar un número en el buscador.`;
+      return;
+    }
+    const data = await fetchJson(buildUserUrl(userID));
     showData(data);
   } catch (err) {
     alert("Usuario no encontrado");
@@ -43,21 +70,17 @@ const showData = (data) => {
 };
 
 const clearData = () => {
-  // Get all elements with class "userdata"
-  const userdataEls = document.getElementsByClassName("userdata");
-
-  // Loop through and clear each one’s innerHTML
   for (let el of userdataEls) {
     el.innerHTML = "";
   }
-  instructions.textContent = `Enter a Pokémon's name or number in the search bar and click "Search." You can also click "Random" to find a random Pokémon, or use the "Clear" button to reset the Pokédex.`;
 };
 
-searchButton.addEventListener("click", (e) => {
-  e.preventDefault();
+const showInstructions = () => {
   clearData();
-  getUsers();
-});
+  instructions.textContent = `Ingresa el número de proveedor en la barra de búsqueda y haz clic en "Buscar."
+También puedes hacer clic en "Aleatorio" para encontrar un proveedor al azar, o usar el
+botón "Limpiar" para reiniciar el buscador`;
+};
 
 const getRandomUsers = () => {
   clearData();
@@ -67,50 +90,15 @@ const getRandomUsers = () => {
   getUsers();
 };
 
-clearButton.addEventListener("click", clearData);
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  clearData();
+  getUsers();
+});
+
+clearButton.addEventListener("click", showInstructions);
 
 randomButton.addEventListener("click", (e) => {
   e.preventDefault();
   getRandomUsers();
 });
-
-// fetch("https://jsonplaceholder.typicode.com/users")
-//   .then((res) => {
-//     return res.json();
-//   })
-//   .then((data) => {
-//     data.forEach((user) => {
-//       const markupUser = `<li>${user.name}, número de usuario ${user.id}</li>`;
-//       document
-//         .querySelector(".users")
-//         .insertAdjacentHTML("beforeend", markupUser);
-
-//       const markupContact = `<div>
-//                 <p>Datos de contacto de ${user.name}</p>
-//                 <ul>
-//                     <li>Usuario: ${user.username}</li>
-//                     <li>Correo: ${user.email}</li>
-//                     <li>Teléfono: ${user.phone}</li>
-//                     <li>Sitio web: ${user.website}</li>
-//                 </ul>
-//                     </div>`;
-//       document
-//         .querySelector(".email")
-//         .insertAdjacentHTML("beforeend", markupContact);
-
-//       const markupAddress = `<div>
-//                 <p>Ubicación de ${user.name}</p>
-//                 <ul>
-//                     <li>Ciudad: ${user.address.city}</li>
-//                     <li>Dirección: ${user.address.street}</li>
-//                     <li>Depto: ${user.address.suite}</li>
-//                     <li>Código postal: ${user.address.zipcode}</li>
-//                     <a href="https://www.google.com/maps/search/?api=1&query=${user.address.geo.lat},${user.address.geo.lng}">Ver en mapa</a>
-//                 </ul>
-//             </div>`;
-//       document
-//         .querySelector(".address")
-//         .insertAdjacentHTML("beforeend", markupAddress);
-//     });
-//   })
-//   .catch((error) => console.log(error));
