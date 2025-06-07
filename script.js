@@ -4,6 +4,7 @@ const randomButton = document.getElementById("random-button");
 const clearButton = document.getElementById("clear-button");
 const instructions = document.getElementById("app__messages");
 const userdataEls = document.getElementsByClassName("userdata");
+const stats = document.getElementsByClassName("stats");
 const BASE_URL = "https://jsonplaceholder.typicode.com/users";
 
 const buildUserUrl = (userID) => {
